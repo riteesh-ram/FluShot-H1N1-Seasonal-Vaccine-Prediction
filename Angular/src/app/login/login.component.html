@@ -1,0 +1,486 @@
+<div class=" register">
+    <div class="container-liquid">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <!-- https://image.ibb.co/n7oTvU/logo_white.png -->
+                <img src="../../assets/images/login Logo.png" style="width: 128px;" alt=""/>
+                <h3>Welcome Back</h3>
+                <p>Let's Continue our journey of making County Healthy</p>
+                <a routerLink="/register">
+                    <input type="submit" name="" value="Register"/><br/>
+                </a>
+
+
+                
+                
+            </div>
+            <div class="col-md-9 register-right">
+            
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Login</h3>
+                        <div class="row register-form">
+                            <div class="col-md-12">
+                                
+                                <!-- ngModel #username ="ngModel" 
+                                    (ngModelChange)="onEmailChange($event)" -->
+            
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Your Email *" value="" 
+                                    (input) = "username=($any($event).target.value)"
+                                    
+                                    />
+                                </div>
+                                <!-- ngModel #username ="ngModel" 
+                                    (ngModelChange)="onPasswordChange($event)" -->
+
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Password *" value=""
+                                     (input) = "password=($any($event).target.value)"/>
+                                </div>
+                                
+                                <input type="submit" class="btnRegister"  value="Login" (click) = "getDetails()"/>
+
+                                <a href="#" routerLink="/forgot">Forgot Password ?</a>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            
+        </div>
+
+        
+    </div>
+
+    <a href=# data-toggle="modal" data-target="#exampleModalCenter" >
+        <div class="card rounded-0 operation-card">
+          <div class="card-body p-2">
+            <span class="p-2"><i class="far fa-chart-bar"></i></span>
+            <span class="p-2">Data Sampling</span>
+          </div>
+        </div>
+    </a>
+    
+</div>
+
+
+<!-- Predict Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Data Collection</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            <form>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">h1n1_concern</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "h1n1_concern=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">h1n1_knowledge</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "h1n1_knowledge=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_antiviral_meds</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_antiviral_meds=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_large_gatherings</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_large_gatherings=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_outside_home</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_outside_home=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_avoidance</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_avoidance=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_face_mask</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_face_mask=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_wash_hands</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_wash_hands=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_touch_face</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_touch_face=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">doctor_recc_h1n1</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "doctor_recc_h1n1=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">doctor_recc_seasonal</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "doctor_recc_seasonal=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">chronic_med_condition</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "chronic_med_condition=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">child_under_6_months</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "child_under_6_months=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">health_worker</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "health_worker=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">health_insurance</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "health_insurance=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_h1n1_vacc_effective</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_h1n1_vacc_effective=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_h1n1_risk</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_h1n1_risk=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_h1n1_sick_from_vacc</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_h1n1_sick_from_vacc=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_seas_vacc_effective</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_seas_vacc_effective=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_seas_risk</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_seas_risk=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_seas_sick_from_vacc</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_seas_sick_from_vacc=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">household_adults</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "household_adults=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">household_children</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "household_children=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">age_group</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "age_group=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="65+ Years">65+ Years</option>
+                      <option value="55 - 64 Years">55 - 64 Years</option>
+                      <option value="45 - 54 Years">45 - 54 Years</option>
+                      <option value="35 - 44 Years">35 - 44 Years	</option>
+                      <option value="18 - 34 Years">18 - 34 Years	</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">education</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "education=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="College Graduate">College Graduate</option>
+                      <option value="Some College">Some College</option>
+                      <option value="12 Years">12 Years</option>
+                      <option value="< 12 Years">< 12 Years</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">race</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "race=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="White">White</option>
+                      <option value="Black">Black</option>
+                      <option value="Hispanic">Hispanic</option>
+                      <option value="Other or Multiple">Other or Multiple</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">sex</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "sex=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="Female">Female</option>
+                      <option value="Male">Male</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">income_poverty</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "income_poverty=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="<= $75,000, Above Poverty"><= $75,000, Above Poverty</option>
+                      <option value="> $75,000">> $75,000</option>
+                      <option value="Below Poverty">Below Poverty</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">marital_status</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "marital_status=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="Married">Married</option>
+                      <option value="Not Married">Not Married</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">rent_or_own</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "rent_or_own=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="Own">Own</option>
+                      <option value="Rent">Rent</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">employment_status</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "employment_status=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="Employed">Employed</option>
+                      <option value="Not in Labor Force">Not in Labor Force</option>
+                      <option value="Unemployed">Unemployed</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">hhs_geo_region</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "hhs_geo_region=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="lzgpxyit">lzgpxyit</option>
+                      <option value="fpwskwrf">fpwskwrf</option>
+                      <option value="qufhixun">qufhixun</option>
+                      <option value="oxchjgsf">oxchjgsf</option>
+                      <option value="kbazzjca">kbazzjca</option>
+                      <option value="bhuqouqj">fpwskwrf</option>
+                      <option value="mlyzmhmf">mlyzmhmf</option>
+                      <option value="lrircsnp">lrircsnp</option>
+                      <option value="atmpeygn">atmpeygn</option>
+                      <option value="dqpwygqj">dqpwygqj</option>
+
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">census_msa</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "census_msa=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="MSA, Not Principle City">MSA, Not Principle City</option>
+                      <option value="MSA, Principle City">MSA, Principle City</option>
+                      <option value="Non-MSA">Non-MSA</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">employment_industry</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "employment_industry=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="fcxhlnwr">fcxhlnwr</option>
+                      <option value="wxleyezf">wxleyezf</option>
+                      <option value="ldnlellj">ldnlellj</option>
+                      <option value="pxcmvdjn">pxcmvdjn</option>
+                      <option value="atmlpfrs">atmlpfrs</option>
+                      <option value="arjwrbjb">arjwrbjb</option>
+                      <option value="xicduogh">xicduogh</option>
+                      <option value="mfikgejo">mfikgejo</option>
+                      <option value="vjjrobsf">vjjrobsf</option>
+                      <option value="rucpziij">rucpziij</option>
+                      <option value="xqicxuve">xqicxuve</option>
+                      <option value="saaquncn">saaquncn</option>
+                      <option value="cfqqtusy">cfqqtusy</option>
+                      <option value="nduyfdeo">nduyfdeo</option>
+                      <option value="mcubkhph">mcubkhph</option>
+                      <option value="wlfvacwt">wlfvacwt</option>
+                      <option value="dotnnunm">dotnnunm</option>
+                      <option value="Other">Other</option>
+
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">employment_occupation</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "employment_occupation=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="xtkaffoo">xtkaffoo</option>
+                      <option value="mxkfnird">mxkfnird</option>
+                      <option value="emcorrxb">emcorrxb</option>
+                      <option value="cmhcxjea">cmhcxjea</option>
+                      <option value="xgwztkwe">xgwztkwe</option>
+                      <option value="hfxkjkmi">hfxkjkmi</option>
+                      <option value="qxajmpny">qxajmpny</option>
+                      <option value="xqwwgdyp">xqwwgdyp</option>
+                      <option value="kldqjyjy">kldqjyjy</option>
+                      <option value="uqqtjvyb">uqqtjvyb</option>
+                      <option value="tfqavkke">tfqavkke</option>
+                      <option value="ukymxvdu">ukymxvdu</option>
+                      <option value="vlluhbov">vlluhbov</option>
+                      <option value="oijqvulv">oijqvulv</option>
+                      <option value="ccgxvspp">ccgxvspp</option>
+                      <option value="bxpfxfdn">bxpfxfdn</option>
+                      <option value="haliazsg">haliazsg</option>
+                      <option value="other">other</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <button type="button" class="btn btn-success mt-4" (click)="dataUpload()">Upload</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card rounded-0 m-2 label-card">
+                  
+                    <div class="row card-body p-1 m-2"  >
+                      <div class="col-12 d-flex float-left">
+                        <span class="p-2" style="background-color: #1b5297; color: #fff">Thank you For Being Part of the Survey&nbsp;&nbsp;&nbsp;</span>
+                        <span class="p-2  justify-content-center ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{dur}}</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of Predict Modal -->
