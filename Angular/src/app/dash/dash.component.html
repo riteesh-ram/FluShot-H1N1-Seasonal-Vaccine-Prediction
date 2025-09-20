@@ -1,0 +1,882 @@
+<div class="spinLoader"  *ngIf="spinnerloading">
+  <div class="container">
+    <div class="row">
+      <div id="loader">
+          <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="loading"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<diV style="z-index: 1 !important;">
+
+  <div class="toolbar w-100 justify-content-between" role="banner" >
+    <diV class="row m-1">
+      <img class="rounded-circle p-1" width="50" height="50" src="../../../assets/images/Flushot.png" />
+      <h4 class="mt-2">Flu Shot</h4>
+    </diV>
+    
+    <img class="rounded-circle p-1" width="40" height="40" src="../../../assets/images/bmu.png">
+  </div>
+
+  <div class="container">
+    <div class="area"></div>
+    <nav class="main-menu">
+      <ul>
+        <a href="#" routerLink="">
+          <li class="nav-list" style="position: absolute; bottom: 0">
+            <i class="fas fa-power-off side-far" style="font-weight: 600"></i>
+            <span class="nav-text">
+              Logout
+            </span>
+          </li>
+        </a>
+      </ul>
+    </nav>
+
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item mt-5">
+              <!-- <a routerLink="/image_classification">Home</a> -->
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="row w-100 my-2 operations-section">
+
+      <div class="col">
+        <a href=# data-toggle="modal" data-target="#addlabelmodal">
+          <div class="card rounded-0 operation-card" style="border: 0.5px dashed #1b5297;">
+            <div class="card-body p-2">
+              <span class="p-2"><i class="fas fa-plus"></i></span>
+              <span class="p-2">Add Project</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-2">
+        <a  href=#  data-toggle="modal" data-target="#uploadimagemodal" *ngIf='personal && projectSelection'>
+          <div class="card rounded-0 operation-card" style="border: 0.5px dashed #1b5297;">
+            <div class="card-body p-2">
+              <span class="p-2"><i class="fas fa-plus"></i></span>
+              <span class="p-2">Dataset</span>
+            </div>
+          </div>
+        </a>
+        <a *ngIf='!(personal && projectSelection)'>
+          <div class="card rounded-0 operation-card" style="border: 0.5px dashed #1b5297;">
+            <div class="card-body p-2">
+              <span class="p-2"><i class="fas fa-plus"></i></span>
+              <span class="p-2">Dataset</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-2">
+        <a href=# data-toggle="modal" data-target="#buildprojectmodal" *ngIf='personal && projectSelection' (click)= "trainModel()">
+          <div class="card rounded-0 operation-card">
+            <div class="card-body p-2">
+              <span class="p-2"><i class="fas fa-cog"></i></span>
+              <span class="p-2">Build</span>
+            </div>
+          </div>
+        </a>
+        <a *ngIf='!(personal && projectSelection)'>
+          <div class="card rounded-0 operation-card">
+            <div class="card-body p-2">
+              <span class="p-2"><i class="fas fa-cog"></i></span>
+              <span class="p-2">Build</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-2">
+        <a href=# data-toggle="modal" data-target="#exampleModalCenter" *ngIf = 'projectSelection'>
+          <div class="card rounded-0 operation-card">
+            <div class="card-body p-2">
+              <span class="p-2"><i class="far fa-chart-bar"></i></span>
+              <span class="p-2">Predict</span>
+            </div>
+          </div>
+        </a>
+        <a *ngIf = '!projectSelection' >
+          <div class="card rounded-0 operation-card">
+            <div class="card-body p-2">
+              <span class="p-2"><i class="far fa-chart-bar"></i></span>
+              <span class="p-2">Predict</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-2">
+        <a href=# data-toggle="modal" data-target="#deployprojectmodal" *ngIf='personal && projectSelection && depButton' (click)="deployModel()">
+          <div class="card rounded-0 operation-card">
+            <div class="card-body p-2">
+              <span class="p-2"><i class="fas fa-bolt"></i></span>
+              <span class="p-2">Deploy</span>
+            </div>
+          </div>
+        </a>
+        <a  *ngIf='!(personal && projectSelection && depButton)'>
+          <div class="card rounded-0 operation-card">
+            <div class="card-body p-2">
+              <span class="p-2"><i class="fas fa-bolt"></i></span>
+              <span class="p-2">Deploy</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Remaining Content -->
+    <div class="row mt-2 labels-images">
+      <div class="col-3">
+        <div class="col-md-12 labels-section">
+          <div class="row my-1 py-2 border-bottom font-weight-bold" style="background-color: #1b5297; color: #ffffff;">
+            <div class="col-12">Models</div>
+          </div>
+          <div class="row">
+            <div class="col-12 my-2">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-default shadow-none" (click) ="getAllDetails()">All</button>
+                <button type="button" class="btn btn-default shadow-none" (click) ="getDeployedProjects()">Deploy</button>
+                <button type="button" class="btn btn-default shadow-none" (click) ="getUnDeployedProjects()">Un-Deploy</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2" data-simplebar style="max-height:330px; overflow: auto">
+            <div class="col">
+              <div class="card rounded-0 m-2 label-card" *ngFor="let label of allProjects">
+                <div class="row card-body p-1"  >
+                  <div class="col-12 d-flex justify-content-between">
+                    <span class="p-2 float-left border" style="background-color: #1b5297; color: #fff">{{label.count}}</span>
+                    <span class="p-2" (click)= "selectProject(label);getModelDetails(label)">{{label}}</span>
+                    <span class="p-2 float-right"><i class="far fa-trash-alt" data-toggle="modal"
+                        data-target="#deletelabelmodal" (click)='deleteProject(label)' *ngIf= 'personal'></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-9">
+        <div class="col-md-12 images-section d-flex flex-column">
+          <div class="row my-1 py-0 border-bottom font-weight-bold" style="background-color: #1b5297; color: #ffffff;">
+            <div class="col-12">
+              <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link bg-transparent rounded-0 active" id="pills-images-tab" data-toggle="pill" href="#images" role="tab" aria-controls="pills-images" aria-selected="true">ROC Curve</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link bg-transparent rounded-0" id="pills-models-tab" data-toggle="pill" href="#models" role="tab" aria-controls="pills-models" aria-selected="false">Model Info</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content flex-fill" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="images" role="tabpanel" aria-labelledby="pills-images-tab">
+              <div class="row mt-2" data-simplebar style="height:360px; overflow: auto">
+                <div class="row m-0 p-2 d-flex align-content-center justify-content-center" >
+                    <div >
+                      <figure class="snip1527" *ngIf="projectSelection">
+                        <div class="image"><img [src]= "image1" alt="pr-sample23" /> </div>
+                        <br>
+                        <hr>
+                        <div class="image"><img [src]= "image2" alt="pr-sample23" /> </div>
+                      </figure>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="models" role="tabpanel" aria-labelledby="pills-models-tab">
+              <!-- d-flex align-items-center justify-content-center -->
+
+              <div class="row m-2 w-100">
+                <div class="col-12 models-table table-responsive" data-simplebar style="overflow: auto">
+                  <div class="row mt-2" data-simplebar style="max-height:330px; overflow: auto">
+                    <div class="col">
+                      <div class="card rounded-0 m-2 label-card">
+                        <div class="row card-body p-1 m-2"  >
+                          <div class="col-12 d-flex float-left">
+                            <span class="p-2" style="background-color: #1b5297; color: #fff">&nbsp;&nbsp;&nbsp;Model Name&nbsp;&nbsp;&nbsp;</span>
+                            <span class="p-2  justify-content-center">{{dModelName}} </span>
+                          </div>
+                        </div>
+                        <div class="row card-body p-1 m-2"  >
+                          <div class="col-12 d-flex float-left">
+                            <span class="p-2" style="background-color: #1b5297; color: #fff">Accuracy H1N1&nbsp;&nbsp;&nbsp;</span>
+                            <span class="p-2  justify-content-center ">{{dH1N1Acc}}</span>
+                          </div>
+                        </div>
+                        <div class="row card-body p-1 m-2"  >
+                          <div class="col-12 d-flex float-left">
+                            <span class="p-2 " style="background-color: #1b5297; color: #fff">Accuracy SSNL&nbsp;&nbsp;&nbsp;</span>
+                            <span class="p-2  justify-content-center ">{{dSesAcc}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-2" data-simplebar style="max-height:330px; overflow: auto" >
+                    <div class="col" *ngIf= "projectSelection">
+                      <div class="card rounded-0 m-2 label-card">
+                        <div class="row card-body p-1 m-2"  >
+                          <div class="col-12 d-flex justify-content-between">
+                            <button class="p-2 ml-4" style="background-color: #1b5297; color: #fff" (click)='downloadfile("training_set_features.csv")'>TRAINING DATASET</button>
+                            <button class="p-2 mr-4" style="background-color: #1b5297; color: #fff" (click)='dtale()'>&nbsp;&nbsp;&nbsp;&nbsp;EDIT DATASET&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                          </div>
+                        </div>
+                        <div class="row card-body p-1 m-2"  >
+                          <div class="col-12 d-flex justify-content-between">
+                            <button class="p-2 ml-4" style="background-color: #1b5297; color: #fff" (click)='downloadfile("Profiling_Report.html")'>PROFILING REPORT</button>
+                            <button class="p-2 mr-4" style="background-color: #1b5297; color: #fff" (click)='downloadfile("sweetviz.html")'>SWEETVIZ REPORT</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Remaining Content Complete-->
+  </div>
+  <!-- Container Closed -->
+
+
+  <!-- add  Project -->
+  <div class="modal fade" id="addlabelmodal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog"aria-labelledby="addLabelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addlabelLabel">Add Label</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" (click)='projectcreated=false;loading=false;newProjectName=""'>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-4 col-form-label">New Label Name</label>
+              <div class="col-sm-8 float-right">
+                <input type="text" class="form-control-plaintext" id="staticEmail" placeholder="Enter New Project Name"
+                (input)="newProjectName=$event.target.value"  value={{newProjectName}} >
+              </div>
+            </div>
+  
+            <div class="row"  *ngIf="loading">
+              <div class="col text-center">
+                <div class="spinner-border text-success" role="status">
+                  <span class="sr-only">adding label in progress...</span>
+                </div>
+              </div>
+            </div>
+            <div class="row"  *ngIf="projectcreated">
+              <p class="col text-center">Label added successfully!</p>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)='addProject(newProjectName);'>Add Label</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)='projectcreated=false;loading=false;newProjectName=""'>close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of add Project -->
+
+
+  <!-- upload image multiple -->
+  <div class="modal fade" id="uploadimagemodal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog"aria-labelledby="uploadimageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="uploadimagLabel">Upload Dataset(s)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" (click)='imageuploaded=false;loading=false;uploaderImage.clearQueue()'>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <form method="post" action="#" id="#">
+                    <div class="form-group files">
+                      <input type="file" class="form-control form-control-sm" name="multiple" ng2FileSelect
+                        [uploader]="uploaderImage" multiple="" accept=".csv" ngf-max-files=3 />
+                    </div>
+                  </form>
+                </div>
+                <div data-simplebar class="col-md-6" style="height: 200px; overflow: auto;">
+                  <table class="table table-sm">
+                    <thead class="table-secondary table-bordered">
+                      <tr>
+                        <th scope="col">File Name</th>
+                        <th scope="col">Size</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-bordered table-striped mb-0 ">
+                      <tr *ngFor="let item of uploaderImage.queue">
+                        <td>{{ item.file.name }}</td>
+                        <td>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+    
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="loading">
+            <div class="col text-center">
+              <div class="spinner-border text-success" role="status">
+                <span class="sr-only">File upload in progress...</span>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="imageuploaded">
+            <p class="col text-center">File uploaded successfully!</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="uploadImage();" [disabled]="!uploaderImage.getNotUploadedItems().length">Upload</button>
+          <button type="button" class="btn btn-danger" (click)='imageuploaded=false;loading=false;uploaderImage.clearQueue();' data-dismiss="modal">close</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <!-- end of upload image multiple -->
+
+
+  <!-- Predict Modal -->
+  <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Predict</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" (click)='imageuploaded=false;loading=false;uploaderImage.clearQueue()'>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <ul class="nav nav-pills justify-content-center" role="tablist" style="color: brown;">
+            <li class="nav-item" role="presentation" style="margin: 20px;">
+              <a class="nav-link bg-transparent rounded-0 active" id="pills-csv-tab" data-toggle="pill" href="#csvtab" role="tab" aria-controls="pills-csv" aria-selected="true">Predict Indiviual</a>
+            </li>
+            <li class="nav-item" role="presentation"  style="margin: 20px;">
+              <a class="nav-link bg-transparent rounded-0" id="pills-predict-tab" data-toggle="pill" href="#predicttab" role="tab" aria-controls="pills-predict" aria-selected="false">Predict CSV</a>
+            </li>
+          </ul>
+
+          <div class="tab-content flex-fill" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="csvtab" role="tabpanel" aria-labelledby="pills-csv-tab">
+              <form>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">h1n1_concern</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "h1n1_concern=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">h1n1_knowledge</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "h1n1_knowledge=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_antiviral_meds</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_antiviral_meds=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_large_gatherings</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_large_gatherings=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_outside_home</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_outside_home=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_avoidance</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_avoidance=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_face_mask</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_face_mask=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_wash_hands</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_wash_hands=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">behavioral_touch_face</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "behavioral_touch_face=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">doctor_recc_h1n1</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "doctor_recc_h1n1=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">doctor_recc_seasonal</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "doctor_recc_seasonal=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">chronic_med_condition</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "chronic_med_condition=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">child_under_6_months</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "child_under_6_months=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">health_worker</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "health_worker=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">health_insurance</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "health_insurance=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_h1n1_vacc_effective</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_h1n1_vacc_effective=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_h1n1_risk</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_h1n1_risk=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_h1n1_sick_from_vacc</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_h1n1_sick_from_vacc=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_seas_vacc_effective</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_seas_vacc_effective=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_seas_risk</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_seas_risk=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">opinion_seas_sick_from_vacc</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "opinion_seas_sick_from_vacc=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4</option>
+                      <option value=5>5</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">household_adults</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "household_adults=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">household_children</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "household_children=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">age_group</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "age_group=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="65+ Years">65+ Years</option>
+                      <option value="55 - 64 Years">55 - 64 Years</option>
+                      <option value="45 - 54 Years">45 - 54 Years</option>
+                      <option value="35 - 44 Years">35 - 44 Years	</option>
+                      <option value="18 - 34 Years">18 - 34 Years	</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">education</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "education=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="College Graduate">College Graduate</option>
+                      <option value="Some College">Some College</option>
+                      <option value="12 Years">12 Years</option>
+                      <option value="< 12 Years">< 12 Years</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">race</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "race=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="White">White</option>
+                      <option value="Black">Black</option>
+                      <option value="Hispanic">Hispanic</option>
+                      <option value="Other or Multiple">Other or Multiple</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">sex</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "sex=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="Female">Female</option>
+                      <option value="Male">Male</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">income_poverty</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "income_poverty=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="<= $75,000, Above Poverty"><= $75,000, Above Poverty</option>
+                      <option value="> $75,000">> $75,000</option>
+                      <option value="Below Poverty">Below Poverty</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">marital_status</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "marital_status=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="Married">Married</option>
+                      <option value="Not Married">Not Married</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">rent_or_own</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "rent_or_own=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="Own">Own</option>
+                      <option value="Rent">Rent</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">employment_status</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "employment_status=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="Employed">Employed</option>
+                      <option value="Not in Labor Force">Not in Labor Force</option>
+                      <option value="Unemployed">Unemployed</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">hhs_geo_region</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "hhs_geo_region=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="lzgpxyit">lzgpxyit</option>
+                      <option value="fpwskwrf">fpwskwrf</option>
+                      <option value="qufhixun">qufhixun</option>
+                      <option value="oxchjgsf">oxchjgsf</option>
+                      <option value="kbazzjca">kbazzjca</option>
+                      <option value="bhuqouqj">fpwskwrf</option>
+                      <option value="mlyzmhmf">mlyzmhmf</option>
+                      <option value="lrircsnp">lrircsnp</option>
+                      <option value="atmpeygn">atmpeygn</option>
+                      <option value="dqpwygqj">dqpwygqj</option>
+
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">census_msa</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "census_msa=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="MSA, Not Principle City">MSA, Not Principle City</option>
+                      <option value="MSA, Principle City">MSA, Principle City</option>
+                      <option value="Non-MSA">Non-MSA</option>
+                    </select>
+                  </div>    
+                </div>
+                <div class="row gx-3 gy-2 align-items-center align-content-center">
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">employment_industry</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "employment_industry=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="fcxhlnwr">fcxhlnwr</option>
+                      <option value="wxleyezf">wxleyezf</option>
+                      <option value="ldnlellj">ldnlellj</option>
+                      <option value="pxcmvdjn">pxcmvdjn</option>
+                      <option value="atmlpfrs">atmlpfrs</option>
+                      <option value="arjwrbjb">arjwrbjb</option>
+                      <option value="xicduogh">xicduogh</option>
+                      <option value="mfikgejo">mfikgejo</option>
+                      <option value="vjjrobsf">vjjrobsf</option>
+                      <option value="rucpziij">rucpziij</option>
+                      <option value="xqicxuve">xqicxuve</option>
+                      <option value="saaquncn">saaquncn</option>
+                      <option value="cfqqtusy">cfqqtusy</option>
+                      <option value="nduyfdeo">nduyfdeo</option>
+                      <option value="mcubkhph">mcubkhph</option>
+                      <option value="wlfvacwt">wlfvacwt</option>
+                      <option value="dotnnunm">dotnnunm</option>
+                      <option value="Other">Other</option>
+
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <label for="validationDefault04">employment_occupation</label>
+                    <select class="custom-select" id="validationDefault04" required (input) = "employment_occupation=($any($event).target.value)">
+                      <option selected disabled value="">Choose...</option>
+                      <option value="xtkaffoo">xtkaffoo</option>
+                      <option value="mxkfnird">mxkfnird</option>
+                      <option value="emcorrxb">emcorrxb</option>
+                      <option value="cmhcxjea">cmhcxjea</option>
+                      <option value="xgwztkwe">xgwztkwe</option>
+                      <option value="hfxkjkmi">hfxkjkmi</option>
+                      <option value="qxajmpny">qxajmpny</option>
+                      <option value="xqwwgdyp">xqwwgdyp</option>
+                      <option value="kldqjyjy">kldqjyjy</option>
+                      <option value="uqqtjvyb">uqqtjvyb</option>
+                      <option value="tfqavkke">tfqavkke</option>
+                      <option value="ukymxvdu">ukymxvdu</option>
+                      <option value="vlluhbov">vlluhbov</option>
+                      <option value="oijqvulv">oijqvulv</option>
+                      <option value="ccgxvspp">ccgxvspp</option>
+                      <option value="bxpfxfdn">bxpfxfdn</option>
+                      <option value="haliazsg">haliazsg</option>
+                      <option value="other">other</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3 mx-auto">
+                    <button type="button" class="btn btn-success mt-4" (click)="predictInd()">Predict</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card rounded-0 m-2 label-card">
+                  
+                    <div class="row card-body p-1 m-2"  >
+                      <div class="col-12 d-flex float-left">
+                        <span class="p-2" style="background-color: #1b5297; color: #fff">Probability of H1N1&nbsp;&nbsp;&nbsp;</span>
+                        <span class="p-2  justify-content-center ">{{pH1N1}}</span>
+                      </div>
+                    </div>
+                    <div class="row card-body p-1 m-2"  >
+                      <div class="col-12 d-flex float-left">
+                        <span class="p-2 " style="background-color: #1b5297; color: #fff">Probability of SSNL&nbsp;&nbsp;&nbsp;</span>
+                        <span class="p-2  justify-content-center ">{{pses}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          
+            <div class="tab-pane fade " id="predicttab" role="tabpanel" aria-labelledby="pills-predict-tab">
+              <div class="row w-100 ">
+                <div class="col-md-12 w-100">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <form method="post" action="#" id="#">
+                        <div class="form-group files">
+                          <input type="file" class="form-control form-control-sm" name="multiple" ng2FileSelect
+                            [uploader]="uploaderImage" multiple="" accept=".csv" ngf-max-files=1 />
+                        </div>
+                      </form>
+                    </div>
+                    <div data-simplebar class="col-md-6" style="height: 200px; overflow: auto;">
+                      <table class="table table-sm">
+                        <thead class="table-secondary table-bordered">
+                          <tr>
+                            <th scope="col">File Name</th>
+                            <th scope="col">Size</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-bordered table-striped mb-0 ">
+                          <tr *ngFor="let item of uploaderImage.queue">
+                            <td>{{ item.file.name }}</td>
+                            <td>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="loading">
+                <div class="col text-center">
+                  <div class="spinner-border text-success" role="status">
+                    <span class="sr-only">File upload in progress...</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="imageuploaded">
+                <p class="col text-center">File uploaded successfully!</p>
+              </div>
+              <button type="button" class="btn btn-success mt-4 float-right" (click)="predictCSV()">Predict</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of Predict Modal -->
+
+
+
+
+  <footer class=" text-white w-100" style="background-color: #1b5297; position:absolute; bottom: 0px; height: 60px;">
+    <!-- Copyright -->
+    <div class="row w-100">
+      <div class="col-8 float-left pt-3">
+        © 2021 Copyright:
+        <a class="text-white" href="https://github.com/Abhiram2001/">Flu Shot Group</a>
+      </div>
+      <div class="col-4 " style="padding: 0px !important;">
+        <img src="../../assets/images/Lets-vaccinate-1_30-sec-reel-cover-image-48b18119-321x321.png" alt="Vaccinate" style="height: 60px; float: right; margin: 0px; padding: opx;">
+      </div>
+
+    </div>
+    
+    <!-- Copyright -->
+  </footer>
+
+
+
+
+
+
+
+<!-- Our Component Final -->
+</diV>
